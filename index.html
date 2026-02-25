@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Ops | Integrity Command Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+    <div class="max-w-6xl mx-auto p-8">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-emerald-400">Data-to-Model Integrity</h1>
+            <p class="text-slate-400">Monitoring schema drift and model reliability for Data Operations.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-emerald-500">
+                <p class="text-sm text-slate-400">Avg. Integrity Score</p>
+                <p class="text-3xl font-bold" id="integrity-val">94.2%</p>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-amber-500">
+                <p class="text-sm text-slate-400">Schema Stability</p>
+                <p class="text-3xl font-bold">98.1%</p>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500">
+                <p class="text-sm text-slate-400">Avg. Model MAPE</p>
+                <p class="text-3xl font-bold">4.2%</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+                <h3 class="mb-4 font-semibold">Data-Centric Correlation (Quality vs. Error)</h3>
+                <canvas id="correlationChart"></canvas>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+                <h3 class="mb-4 font-semibold">Source Volatility Heatmap</h3>
+                <canvas id="volatilityChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Centric Logic: Higher Integrity = Lower MAPE
+        const ctx = document.getElementById('correlationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                datasets: [{
+                    label: 'Integrity Score (%)',
+                    data: [82, 85, 91, 94, 96],
+                    borderColor: '#10B981',
+                    tension: 0.3
+                }, {
+                    label: 'Model Error (MAPE %)',
+                    data: [12, 10, 6, 5, 4.2],
+                    borderColor: '#EF4444',
+                    tension: 0.3
+                }]
+            },
+            options: { plugins: { legend: { labels: { color: 'white' } } } }
+        });
+
+        // Volatility logic for disparate sources
+        const vCtx = document.getElementById('volatilityChart').getContext('2d');
+        new Chart(vCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Google Ads', 'Meta', 'BigQuery', 'Retail Data'],
+                datasets: [{
+                    label: 'Schema Drift Events',
+                    data: [12, 19, 3, 5],
+                    backgroundColor: '#334155'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
