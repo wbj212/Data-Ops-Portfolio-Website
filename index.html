@@ -8,71 +8,92 @@
 </head>
 <body class="bg-slate-900 text-white font-sans">
     <div class="max-w-6xl mx-auto p-8">
-        <header class="mb-12">
+        <header class="mb-12 border-b border-slate-700 pb-6">
             <h1 class="text-4xl font-bold text-emerald-400">Data-to-Model Integrity</h1>
-            <p class="text-slate-400">Monitoring schema drift and model reliability for Data Operations.</p>
+            <p class="text-slate-400 mt-2 italic">Benjamin Woobin Jeong | Data Operations Portfolio</p>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-emerald-500">
-                <p class="text-sm text-slate-400">Avg. Integrity Score</p>
-                <p class="text-3xl font-bold" id="integrity-val">94.2%</p>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-emerald-500 shadow-lg">
+                <p class="text-sm text-slate-400 font-semibold uppercase tracking-wider">Avg. Integrity Score</p>
+                <p class="text-4xl font-bold mt-2">84.5%</p>
+                <p class="text-xs text-emerald-400 mt-2">↑ 2.4% vs Last Quarter</p>
             </div>
-            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-amber-500">
-                <p class="text-sm text-slate-400">Schema Stability</p>
-                <p class="text-3xl font-bold">98.1%</p>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-amber-500 shadow-lg">
+                <p class="text-sm text-slate-400 font-semibold uppercase tracking-wider">Schema Stability</p>
+                <p class="text-4xl font-bold mt-2">92.2%</p>
+                <p class="text-xs text-amber-400 mt-2">Target: 95.0%</p>
             </div>
-            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500">
-                <p class="text-sm text-slate-400">Avg. Model MAPE</p>
-                <p class="text-3xl font-bold">4.2%</p>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500 shadow-lg">
+                <p class="text-sm text-slate-400 font-semibold uppercase tracking-wider">Avg. Model MAPE</p>
+                <p class="text-4xl font-bold mt-2">17.7%</p>
+                <p class="text-xs text-red-400 mt-2">↓ Reduced Error by 12%</p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-                <h3 class="mb-4 font-semibold">Data-Centric Correlation (Quality vs. Error)</h3>
+            <div class="bg-slate-800 p-8 rounded-xl shadow-2xl border border-slate-700">
+                <h3 class="mb-6 font-bold text-lg text-slate-200">Evolution of Model Reliability (2026-2028)</h3>
                 <canvas id="correlationChart"></canvas>
+                <p class="mt-4 text-sm text-slate-400">Note: Significant drop in MAPE correlates with 2027 schema standardization.</p>
             </div>
-            <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-                <h3 class="mb-4 font-semibold">Source Volatility Heatmap</h3>
+            <div class="bg-slate-800 p-8 rounded-xl shadow-2xl border border-slate-700">
+                <h3 class="mb-6 font-bold text-lg text-slate-200">Source Volatility Index (Drift Frequency)</h3>
                 <canvas id="volatilityChart"></canvas>
             </div>
         </div>
     </div>
 
     <script>
-        // Data Centric Logic: Higher Integrity = Lower MAPE
+        // Line Chart: Weekly Aggregated Data from CSV
         const ctx = document.getElementById('correlationChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                labels: ['Jan 2026', 'Jul 2026', 'Jan 2027', 'Jul 2027', 'Jan 2028', 'Jun 2028'],
                 datasets: [{
                     label: 'Integrity Score (%)',
-                    data: [82, 85, 91, 94, 96],
+                    data: [83.4, 84.6, 82.6, 86.6, 86.0, 89.6],
                     borderColor: '#10B981',
-                    tension: 0.3
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4
                 }, {
-                    label: 'Model Error (MAPE %)',
-                    data: [12, 10, 6, 5, 4.2],
+                    label: 'Model MAPE (%)',
+                    data: [34.4, 37.3, 14.2, 14.2, 5.0, 5.0],
                     borderColor: '#EF4444',
-                    tension: 0.3
+                    borderDash: [5, 5],
+                    tension: 0.4
                 }]
             },
-            options: { plugins: { legend: { labels: { color: 'white' } } } }
+            options: { 
+                scales: { 
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                },
+                plugins: { legend: { labels: { color: 'white', font: { size: 14 } } } } 
+            }
         });
 
-        // Volatility logic for disparate sources
+        // Bar Chart: Mean Drift Frequency per Source
         const vCtx = document.getElementById('volatilityChart').getContext('2d');
         new Chart(vCtx, {
             type: 'bar',
             data: {
-                labels: ['Google Ads', 'Meta', 'BigQuery', 'Retail Data'],
+                labels: ['BigQuery', 'Google Ads', 'Meta', 'Third-Party'],
                 datasets: [{
-                    label: 'Schema Drift Events',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: '#334155'
+                    label: 'Mean Drift Frequency',
+                    data: [0.077, 0.080, 0.079, 0.075],
+                    backgroundColor: ['#1E293B', '#10B981', '#334155', '#475569'],
+                    borderRadius: 8
                 }]
+            },
+            options: { 
+                scales: { 
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { display: false } } 
             }
         });
     </script>
